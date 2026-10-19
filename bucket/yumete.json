@@ -1,0 +1,45 @@
+{
+    "$schema": "https://raw.githubusercontent.com/ScoopInstaller/Scoop/master/schema.json",
+    "##": [
+        "A release bump is the version, the url, the hash and extract_dir, and typing four things by hand is how one of them ends up belonging to the previous release: scripts/update-yumete.sh rewrites all four from the .sha256 the release publishes beside the zip.",
+        "Two shims from one exe, because the README promises both names: yumete, and ye for the one you actually type.",
+        "x86_64 only. The release builds no arm64 Windows binary, and a manifest that claims an architecture it cannot install fails at download time rather than at install time."
+    ],
+    "version": "0.10.0",
+    "description": "CJK-aware terminal editor for Chinese prose, with the Yume IME built in",
+    "homepage": "https://github.com/forfudan/yumete",
+    "license": "Apache-2.0",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/forfudan/yumete/releases/download/v0.10.0/yumete-0.10.0-windows-x86_64.zip",
+            "hash": "c6327dfd494584fecec3d7d434d2c89a4606a339a69fa62aed51e43b8c4cbc68",
+            "extract_dir": "yumete-0.10.0-windows-x86_64"
+        }
+    },
+    "bin": [
+        "bin\\yumete.exe",
+        [
+            "bin\\yumete.exe",
+            "ye"
+        ]
+    ],
+    "notes": [
+        "yumete types Chinese characters out of the box: the binary carries 靈明 精華版, a cut of 靈明 covering every character in CJK 基本區 and 擴展A.",
+        "For the full experience - words, the language model behind fluency mode, and the 拆分 annotations - install the Yume input method itself, or point $env:YUMETE_DATA_DIR at a data directory. A machine that already runs Yume needs nothing: yumete finds its tables where the app put them.",
+        "The manual is at: $dir\\docs\\manual.md"
+    ],
+    "checkver": {
+        "github": "https://github.com/forfudan/yumete"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/forfudan/yumete/releases/download/v$version/yumete-$version-windows-x86_64.zip",
+                "extract_dir": "yumete-$version-windows-x86_64"
+            }
+        },
+        "hash": {
+            "url": "$url.sha256"
+        }
+    }
+}
