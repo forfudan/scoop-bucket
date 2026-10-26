@@ -5,15 +5,15 @@
         "Two shims from one exe, because the README promises both names: yumete, and ye for the one you actually type.",
         "x86_64 only. The release builds no arm64 Windows binary, and a manifest that claims an architecture it cannot install fails at download time rather than at install time."
     ],
-    "version": "0.12.0",
+    "version": "0.13.0",
     "description": "CJK-aware terminal editor for Chinese prose, with the Yume IME built in",
     "homepage": "https://github.com/forfudan/yumete",
     "license": "Apache-2.0",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/forfudan/yumete/releases/download/v0.12.0/yumete-0.12.0-windows-x86_64.zip",
-            "hash": "1f1bd89a622241b283395080e93a1afd211ac67c7b093ba16c45858564400575",
-            "extract_dir": "yumete-0.12.0-windows-x86_64"
+            "url": "https://github.com/forfudan/yumete/releases/download/v0.13.0/yumete-0.13.0-windows-x86_64.zip",
+            "hash": "29b771f681bce7639d04c8ef2c8b63d85a9132bb2bfd6faf4bc7f4f385d6510a",
+            "extract_dir": "yumete-0.13.0-windows-x86_64"
         }
     },
     "bin": [
