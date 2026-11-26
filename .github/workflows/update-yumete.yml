@@ -1,0 +1,46 @@
+# Point the yumete package at a release, run by hand from the Actions tab:
+# leave the version empty for yumete's latest release. The update script
+# checks every hash against the published files, and nothing is committed
+# when the package already points at that version.
+name: Update yumete
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version, e.g. 0.27.0 (empty: the latest release)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pick the version
+        id: pick
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WANT: ${{ inputs.version }}
+        run: |
+          version="${WANT#v}"
+          if [[ -z "${version}" ]]; then
+            version="$(gh release view --repo forfudan/yumete --json tagName -q .tagName)"
+            version="${version#v}"
+          fi
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+      - name: Update
+        run: scripts/update-yumete.sh "${{ steps.pick.outputs.version }}"
+      - name: Commit
+        run: |
+          if git diff --quiet; then
+            echo "Already at ${{ steps.pick.outputs.version }}; nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "yumete ${{ steps.pick.outputs.version }}"
+          git push
